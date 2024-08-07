@@ -47,8 +47,11 @@ export const useAnimation = () => {
   };
 
   return {
+    //Methods
     animatedOpacity,
     animatedTop,
+
+    //Properties
     fadeIn,
     fadeOut,
     startMovingTopPosition,

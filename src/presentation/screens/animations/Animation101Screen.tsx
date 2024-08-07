@@ -1,12 +1,25 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 import React from 'react';
-import {Animated, Pressable, StyleSheet, Text, View} from 'react-native';
+import {
+  Animated,
+  Easing,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import {colors} from '../../../config/theme/theme';
 import {useAnimation} from '../../hooks/useAnimation';
 
 export const Animation101Screen = () => {
-  const {animatedOpacity, animatedTop, fadeIn, fadeOut} = useAnimation();
+  const {
+    animatedOpacity,
+    animatedTop,
+    fadeIn,
+    fadeOut,
+    startMovingTopPosition,
+  } = useAnimation();
 
   return (
     <View style={styles.container}>
@@ -19,7 +32,16 @@ export const Animation101Screen = () => {
           },
         ]}
       />
-      <Pressable onPress={() => fadeIn({})} style={{marginTop: 10}}>
+      <Pressable
+        onPress={() => {
+          fadeIn({});
+          startMovingTopPosition({
+            initialPosition: -100,
+            easing: Easing.elastic(1),
+            duration: 700,
+          });
+        }}
+        style={{marginTop: 10}}>
         <Text>FadeIn</Text>
       </Pressable>
       <Pressable onPress={() => fadeOut({})} style={{marginTop: 10}}>
