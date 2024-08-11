@@ -1,13 +1,16 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, { useState} from 'react';
 import {CustomView} from '../../components/ui/CustomView';
 import {Title} from '../../components/ui/Title';
 import {ScrollView, Text, TextInput, View} from 'react-native';
 import {Card} from '../../components/ui/Card';
 import {globalStyles} from '../../../config/theme/theme';
+//import {ThemeContext} from '../../context/ThemeContext';
 
 export const TextInputScreen = () => {
+  //  const {colors} = useContext(ThemeContext);
+
   const [form, setForm] = useState({
     name: '',
     email: '',

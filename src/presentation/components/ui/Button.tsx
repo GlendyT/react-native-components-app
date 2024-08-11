@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
-import React from 'react';
+import React, {useContext} from 'react';
 import {Pressable, StyleProp, Text, ViewStyle} from 'react-native';
-import {colors, globalStyles} from '../../../config/theme/theme';
+import {globalStyles} from '../../../config/theme/theme';
+import {ThemeContext} from '../../context/ThemeContext';
 
 interface Props {
   text: string;
@@ -11,6 +12,8 @@ interface Props {
 }
 
 export const Button = ({text, style, onPress}: Props) => {
+  const {colors} = useContext(ThemeContext);
+
   return (
     <Pressable
       onPress={onPress}
