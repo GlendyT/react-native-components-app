@@ -1,12 +1,16 @@
-import React from 'react';
+/* eslint-disable prettier/prettier */
+/* eslint-disable react/no-unstable-nested-components */
+/* eslint-disable react-native/no-inline-styles */
+import React, {useContext} from 'react';
 import {SectionList, Text, useWindowDimensions} from 'react-native';
 import {CustomView} from '../../components/ui/CustomView';
 import {Title} from '../../components/ui/Title';
 import {Card} from '../../components/ui/Card';
 import {Subtitle} from '../../components/ui/Subtitle';
-import {colors} from '../../../config/theme/theme';
+//import { colors } from '../../../config/theme/theme';
 import {Separator} from '../../components/ui/Separator';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {ThemeContext} from '../../context/ThemeContext';
 
 interface Houses {
   title: string;
@@ -91,9 +95,9 @@ const houses: Houses[] = [
 ];
 
 export const CustomSectionListScreen = () => {
-
-  const { height } = useWindowDimensions()
-  const { top } = useSafeAreaInsets()
+  const {height} = useWindowDimensions();
+  const {top} = useSafeAreaInsets();
+  const {colors} = useContext(ThemeContext);
   return (
     <CustomView margin>
       <Title text="Lista de personajes" safe />
@@ -103,14 +107,9 @@ export const CustomSectionListScreen = () => {
           sections={houses}
           keyExtractor={item => item}
           renderItem={({item}) => (
-            <Text style={{marginVertical: 2}}>{item}</Text>
+            <Text style={{marginVertical: 2, color: colors.text}}>{item}</Text>
           )}
-          renderSectionHeader={({section}) => (
-            <Subtitle
-              text={section.title}
-              backgroundColor={colors.cardBackground}
-            />
-          )}
+          renderSectionHeader={({section}) => <Subtitle text={section.title} />}
           stickySectionHeadersEnabled
           SectionSeparatorComponent={Separator}
           ListHeaderComponent={() => <Title text="Personajes" />}
@@ -119,7 +118,7 @@ export const CustomSectionListScreen = () => {
           )}
           showsVerticalScrollIndicator={false}
           style={{
-            height: height - top -120,
+            height: height - top - 120,
           }}
         />
       </Card>

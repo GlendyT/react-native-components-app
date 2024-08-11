@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React, {useRef} from 'react';
-import {Animated, PanResponder, View, StyleSheet} from 'react-native';
+import {Animated, PanResponder, StyleSheet} from 'react-native';
+import {CustomView} from '../../components/ui/CustomView';
 export const Animation102Screen = () => {
   const pan = useRef(new Animated.ValueXY()).current;
 
@@ -26,12 +27,12 @@ export const Animation102Screen = () => {
     },
   });
   return (
-    <View style={styles.container}>
+    <CustomView style={styles.container}>
       <Animated.View
         {...panResponder.panHandlers}
         style={[pan.getTranslateTransform(), styles.box]}
       />
-    </View>
+    </CustomView>
   );
 };
 

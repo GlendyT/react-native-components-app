@@ -1,14 +1,16 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, { useContext } from 'react';
 import {StyleProp, View, ViewStyle} from 'react-native';
-import {colors} from '../../../config/theme/theme';
+import { ThemeContext } from '../../context/ThemeContext';
+//import {colors} from '../../../config/theme/theme';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
 }
 
 export const Separator = ({style}: Props) => {
+  const {colors} = useContext(ThemeContext);
   return (
     <View
       style={{
