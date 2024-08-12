@@ -1,6 +1,18 @@
 /* eslint-disable prettier/prettier */
-import React, {PropsWithChildren, createContext, useState} from 'react';
+import React, {
+  PropsWithChildren,
+  createContext,
+  useEffect,
+  useState,
+} from 'react';
 import {darkColors, lightColors, ThemeColors} from '../../config/theme/theme';
+import {useColorScheme} from 'react-native';
+import {
+  NavigationContainer,
+  DarkTheme,
+  DefaultTheme,
+} from '@react-navigation/native';
+//import {AppState} from 'react-native';
 
 type ThemeColor = 'light' | 'dark';
 
@@ -15,20 +27,46 @@ interface ThemeContextProps {
 export const ThemeContext = createContext({} as ThemeContextProps);
 
 export const ThemeProvider = ({children}: PropsWithChildren) => {
+  const colorScheme = useColorScheme();
   const [currentTheme, setCurrentTheme] = useState<ThemeColor>('light');
+
+  const isDark = currentTheme === 'dark';
+  const colors = isDark ? darkColors : lightColors;
+
+  useEffect(() => {
+    if (colorScheme === 'dark') {
+      setCurrentTheme('dark');
+    } else {
+      setCurrentTheme('light');
+    }
+  }, [colorScheme]);
+
+  // useEffect(() => {
+  //   const subscription = AppState.addEventListener('change', nextAppState => {
+  //     const colorScheme = Appearance.getColorScheme();
+  //     setCurrentTheme(colorScheme === 'dark' ? 'dark' : 'ligth');
+  //   });
+
+  //   return () => {
+  //     subscription.remove();
+  //   };
+  // }, []);
+
   const setTheme = (theme: ThemeColor) => {
     setCurrentTheme(theme);
   };
 
   return (
-    <ThemeContext.Provider
-      value={{
-        currentTheme: currentTheme,
-        isDark: currentTheme !== 'light' ,
-        colors: currentTheme === 'light' ? lightColors : darkColors,
-        setTheme: setTheme,
-      }}>
-      {children}
-    </ThemeContext.Provider>
+    <NavigationContainer theme={isDark ? DarkTheme : DefaultTheme}>
+      <ThemeContext.Provider
+        value={{
+          currentTheme: currentTheme,
+          isDark: isDark,
+          colors: colors,
+          setTheme: setTheme,
+        }}>
+        {children}
+      </ThemeContext.Provider>
+    </NavigationContainer>
   );
 };
